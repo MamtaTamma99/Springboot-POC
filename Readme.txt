@@ -1,1 +1,1 @@
-asdf
+On top of CRUD functionality, Spring security (authentication and authorization), RBAC functionality, and many Java features will be implemented.  
