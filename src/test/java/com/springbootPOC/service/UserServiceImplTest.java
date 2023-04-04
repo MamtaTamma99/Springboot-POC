@@ -1,11 +1,13 @@
 package com.springbootPOC.service;
 
+import com.springbootPOC.constants.ResponseMessageCodes;
 import com.springbootPOC.constants.UserSortingColumns;
 import com.springbootPOC.dbo.User;
 import com.springbootPOC.dto.PageDTO;
 import com.springbootPOC.dto.SortDirection;
 import com.springbootPOC.dto.UserDTO;
 import com.springbootPOC.exception.InvalidArgumentException;
+import com.springbootPOC.exception.WebApplicationException;
 import com.springbootPOC.mapper.UserMapper;
 import com.springbootPOC.repository.UserRepository;
 import com.springbootPOC.validator.UserValidator;
@@ -19,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -113,9 +116,12 @@ public class UserServiceImplTest {
     void testDeleteUserFoundById() throws Exception {
         int userId = 1;
         when(userRepository.existsByUserId(anyInt())).thenReturn(false);
-        Exception exception = assertThrows(Exception.class, () -> userServiceImpl.deleteUser(userId));
+        WebApplicationException webApplicationException = assertThrows(WebApplicationException.class, () -> userServiceImpl.deleteUser(userId));
         assertFalse(false);
-        assertEquals("400 BAD_REQUESTUserId doesn't exist with this id " + userId, exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST.name(), webApplicationException.getHttpStatus().name());
+        assertEquals(ResponseMessageCodes.BAD_REQUEST.getCode(), webApplicationException.getMessageCode());
+        assertEquals("UserId doesn't exist with this id " + userId, webApplicationException.getMessage());
+
     }
 
     private User user() {
