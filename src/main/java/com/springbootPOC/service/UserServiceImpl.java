@@ -96,12 +96,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(int userId) throws Exception {
+    public void deleteUser(int userId) throws WebApplicationException {
         log.info("Inside delete User method");
 
         if(!userRepository.existsByUserId(userId)){
             log.warn("UserId doesn't exist" + userId);
-            throw new Exception(BAD_REQUEST + "UserId doesn't exist with this id " + userId);
+            throw new WebApplicationException(BAD_REQUEST, ResponseMessageCodes.BAD_REQUEST.getCode(), "UserId doesn't exist with this id " + userId);
         }
         log.info("Successfully deleted user with this "+ userId);
         this.userRepository.deleteById(userId);
