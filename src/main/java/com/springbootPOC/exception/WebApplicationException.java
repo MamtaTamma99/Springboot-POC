@@ -1,17 +1,17 @@
 package com.springbootPOC.exception;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 import java.util.Map;
+
 
 /**
  * @author mamta.t
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class WebApplicationException extends DefaultException{
 
     private final HttpStatus httpStatus;
