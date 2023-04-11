@@ -1,16 +1,19 @@
 package com.springbootPOC.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.springbootPOC.constants.UserSortingColumns;
-import com.springbootPOC.dbo.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
-import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
  * @author mamta.t
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DefaultResponseWithPage<T> extends DefaultResponse<T> {
 
     private Long page;

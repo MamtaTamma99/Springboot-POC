@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select count(u)>0  from User u where u.id=:userId")
     boolean existsByUserId(@Param("userId") int userId);
+
+    User findByUsername(String username);
 }
