@@ -16,4 +16,5 @@ public interface UserMapper {
     User toUserDBO(UserDTO userDTO);
 
     List<UserDTO> toUsersDTO(List<User> users);
+
 }

@@ -36,6 +36,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
  * @author mamta.t
@@ -43,12 +44,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
-    
     @InjectMocks
     private UserServiceImpl userServiceImpl;
     @Mock
     private UserRepository userRepository;
-
     @Mock
     private UserValidator userValidator;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
@@ -81,8 +80,11 @@ public class UserServiceImplTest {
     @Test
     void testGetUserByIdNotFound() {
         when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
-        Exception exception = assertThrows(Exception.class, () -> userServiceImpl.getUserById(1));
-        assertEquals("404No User details found with id: " + 1, exception.getMessage());
+        WebApplicationException webApplicationException = assertThrows(WebApplicationException.class, () -> userServiceImpl.getUserById(1));
+        assertEquals(BAD_REQUEST.value(), webApplicationException.getHttpStatus().value());
+        assertEquals(ResponseMessageCodes.BAD_REQUEST.getCode(),webApplicationException.getMessageCode());
+        assertEquals("Invalid User ID received in request: " + 1 ,webApplicationException.getMessage());
+
     }
 
     @Test

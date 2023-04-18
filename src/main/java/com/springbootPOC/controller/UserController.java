@@ -1,10 +1,7 @@
 package com.springbootPOC.controller;
 
-import com.springbootPOC.constants.ResponseMessageCodes;
 import com.springbootPOC.constants.UserSortingColumns;
-import com.springbootPOC.dbo.User;
 import com.springbootPOC.dto.DefaultResponse;
-import com.springbootPOC.dto.DefaultResponseWithPage;
 import com.springbootPOC.dto.PageDTO;
 import com.springbootPOC.dto.UserDTO;
 import com.springbootPOC.exception.InvalidArgumentException;
@@ -35,7 +32,7 @@ import static com.springbootPOC.utils.DefaultResponseBuilder.success;
  * @author mamta.t
  */
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Slf4j
 public class UserController {
 
