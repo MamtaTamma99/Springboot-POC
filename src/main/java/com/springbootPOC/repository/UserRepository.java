@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * @author mamta.t
  */
@@ -13,6 +15,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select count(u)>0  from User u where u.id=:userId")
     boolean existsByUserId(@Param("userId") int userId);
-
-    User findByUsername(String username);
+    Optional<User> findByEmail(String email);
 }

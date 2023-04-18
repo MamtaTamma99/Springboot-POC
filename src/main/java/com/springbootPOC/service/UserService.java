@@ -1,7 +1,6 @@
 package com.springbootPOC.service;
 
 import com.springbootPOC.constants.UserSortingColumns;
-import com.springbootPOC.dbo.User;
 import com.springbootPOC.dto.PageDTO;
 import com.springbootPOC.dto.UserDTO;
 import com.springbootPOC.exception.InvalidArgumentException;
@@ -19,5 +18,4 @@ public interface UserService {
     UserDTO createUser(UserDTO userDTO);
     UserDTO updateUser(int userId, UserDTO updateUserDTO) throws Exception;
     void deleteUser(int id) throws Exception;
-
 }
